@@ -26,7 +26,7 @@ public with sharing class CheckOrderService {
 
             System.debug('Log CARO (classe service CheckOrderService) : le statut est activated');
             if (!hasProduit) {                    
-                maCommande.addError('Meme pas en reve! Il n y a pas de produit');//System.Label.Label_OrderMessageErreur
+                maCommande.addError(System.Label.MessageErreur);//System.Label.Label_OrderMessageErreur
                 System.debug('Log CARO (classe service CheckOrderService) : pas de  produits');
             } else {
                 System.debug('Log CARO (classe service CheckOrderService) : y a des produits');
