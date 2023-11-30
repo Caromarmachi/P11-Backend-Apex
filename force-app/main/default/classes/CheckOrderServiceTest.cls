@@ -9,10 +9,16 @@ private class CheckOrderServiceTest {
         Order myOrder = myDataTool.createOneOrder();
         Test.startTest();
         myOrder.Status = 'Activated';
-        update myOrder;
+        boolean statutValide = false;
+        try {
+          update myOrder;
+          statutValide = true;
+        } catch (System.DmlException e) {
+            System.debug('Log CARO : Exception voulue, on ne peut pas updater si pas d article donc ignoree');
+        }
         Test.stopTest();
         // Vérification des résultats
-        System.assertEquals(true,myOrder.hasErrors(),'Test OK - l objet order a bien une erreur');
+        System.assertEquals(false,statutValide,'Test OK - l objet order a bien une erreur');
     }
 
     @isTest
@@ -21,8 +27,9 @@ private class CheckOrderServiceTest {
         PopulateFakeDatas myDataTool = new PopulateFakeDatas();
         Order myOrder = myDataTool.createOneOrder();
         Test.startTest();
-        myOrder.Active__c = true;
         Account compteLie = myDataTool.getAccount();
+        update compteLie;
+
         delete myOrder;
 
         Test.stopTest();
